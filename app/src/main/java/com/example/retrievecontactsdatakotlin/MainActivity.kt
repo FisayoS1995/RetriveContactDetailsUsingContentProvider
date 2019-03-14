@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 contactList.add(obj)
             }
-            contactList.adapter = ContactAdapter(contactList, this)
+            tvResults.adapter = ContactAdapter(contactList, this)
             contacts.close()
         }
     }
@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
     class ContactAdapter(items: List<ContactDTO>, ctx: Context) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
 
-        private var list: List<String> = items
-        private var context: Context = ctx
+        private var list = items
+        private var context = ctx
 
         override fun getItemCount(): Int {
             return list.size
@@ -64,15 +64,12 @@ class MainActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ContactAdapter.ViewHolder, position: Int) {
             holder.name.text = list[position].name
             holder.number.text = list[position].number
-            if (list[position].image != null)
-                holder.profile.setImageBitmap(list[].image)
-            else
-                holder.profile.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher))
+
 
         }
 
-        override fun onCreateViewHolder(holder: ContactAdapter.ViewHolder, position: Int): ViewHolder {
-            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.contact_child, parent, false))
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.contact_child,parent, false))
         }
 
         class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
